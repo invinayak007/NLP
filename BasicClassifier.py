@@ -39,3 +39,15 @@ def train_text_classifier(training_data, algorithm):
     model.fit(X, labels)
     
     return model
+
+def predict_text_classification(text_to_predict, trained_model, vectorizer):
+    # Clean the input text
+    cleaned_text = clean_text(text_to_predict)
+    
+    # Vectorize the cleaned text using the provided TF-IDF vectorizer
+    X_new = vectorizer.transform([cleaned_text])
+    
+    # Make prediction using the provided trained model
+    prediction = trained_model.predict(X_new)[0]
+    
+    return prediction
