@@ -19,8 +19,10 @@ def train_text_classifier(training_data, algorithm):
     # Perform basic text cleaning
     cleaned_texts = [clean_text(text) for text in texts]
     
-    # Convert text to numerical features using TF-IDF
+    # Create the vectorizer (TfidfVectorizer in this example)
     vectorizer = TfidfVectorizer()
+    
+    # Convert text to numerical features using the vectorizer
     X = vectorizer.fit_transform(cleaned_texts)
     
     # Select the chosen algorithm for classification
@@ -38,13 +40,13 @@ def train_text_classifier(training_data, algorithm):
     # Train the model
     model.fit(X, labels)
     
-    return model
+    return model, vectorizer
 
 def predict_text_classification(text_to_predict, trained_model, vectorizer):
     # Clean the input text
     cleaned_text = clean_text(text_to_predict)
     
-    # Vectorize the cleaned text using the provided TF-IDF vectorizer
+    # Vectorize the cleaned text using the provided vectorizer
     X_new = vectorizer.transform([cleaned_text])
     
     # Make prediction using the provided trained model
