@@ -12,12 +12,10 @@ def clean_text(text):
     text = text.lower()
     return text
 
-def train_text_classifier(training_data, algorithm):
-    # Extract text and labels from training_data
-    texts, labels = zip(*training_data)
-    
+def train_text_classifier(messages, labels, algorithm):
+
     # Perform basic text cleaning
-    cleaned_texts = [clean_text(text) for text in texts]
+    cleaned_texts = [clean_text(text) for text in messages]
     
     # Create the vectorizer (TfidfVectorizer in this example)
     vectorizer = TfidfVectorizer()
@@ -44,12 +42,12 @@ def train_text_classifier(training_data, algorithm):
 
 def predict_text_classification(text_to_predict, trained_model, vectorizer):
     # Clean the input text
-    cleaned_text = clean_text(text_to_predict)
+    cleaned_texts = [clean_text(text) for text in texts_to_predict]
     
     # Vectorize the cleaned text using the provided vectorizer
-    X_new = vectorizer.transform([cleaned_text])
+    X_new = vectorizer.transform(cleaned_text)
     
     # Make prediction using the provided trained model
-    prediction = trained_model.predict(X_new)[0]
+    prediction = trained_model.predict(X_new)
     
     return prediction
